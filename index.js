@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { color, shininess } from 'three/tsl';
+import { color, emissive, shininess } from 'three/tsl';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 
 
@@ -33,28 +33,34 @@ controls.maxDistance = 10 ;
 
 const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshStandardMaterial({color: 'purple' });
-const cube = new THREE.Mesh(geometry,material);
+const originMaterial = new THREE.MeshStandardMaterial({color: 'red'});
+const hightOriginMaterial = new THREE.MeshStandardMaterial({color: 'yellow', emissive: 'white', emissiveIntensity: 0.5});
+const cube = new THREE.Mesh(geometry,originMaterial);
 scene.add(cube);
 cube.position.set(0,0,0);
 const raycast = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+
 function onMouseClick(event){
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1 ;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1 ;
-    raycast.setFromCamera(mouse, camera);
-    const intersects = raycast.intersectObjects(scene.children)
-    if(intersects.length > 0)
-        intersects[0].object.material.color.set('blue')
-    
 }
-window.addEventListener('click', onMouseClick)
+window.addEventListener('mousemove', onMouseClick)
+let state = false;
 function animate(){
     requestAnimationFrame(animate);
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
-
-
-    
+    raycast.setFromCamera(mouse, camera);
+    const intersects = raycast.intersectObject(cube)
+    if(intersects.length > 0 && !state){
+        cube.material = hightOriginMaterial;
+        state = true
+        gsap.to(cube.scale, {x: 1.5 , y: 1.5 , z: 1.5 , duration: 1.5 , ease: "power1.out"})
+    }
+    else if(intersects.length == 0 && state){
+        cube.material = originMaterial;
+        state = false
+        gsap.to(cube.scale, {x: 1 , y: 1, z: 1 , duration: 1.5 , ease: "power1.out"})
+    }
     controls.update();
     renderer.render(scene,camera);
 }
