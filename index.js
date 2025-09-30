@@ -36,7 +36,18 @@ const material = new THREE.MeshStandardMaterial({color: 'purple' });
 const cube = new THREE.Mesh(geometry,material);
 scene.add(cube);
 cube.position.set(0,0,0);
-
+const raycast = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+function onMouseClick(event){
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1 ;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1 ;
+    raycast.setFromCamera(mouse, camera);
+    const intersects = raycast.intersectObjects(scene.children)
+    if(intersects.length > 0)
+        intersects[0].object.material.color.set('blue')
+    
+}
+window.addEventListener('click', onMouseClick)
 function animate(){
     requestAnimationFrame(animate);
     cube.rotation.x += 0.01
