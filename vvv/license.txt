@@ -1,0 +1,11 @@
+Model Information:
+* title:	Volvo P1800 Restomod – Widebody Edition
+* source:	https://sketchfab.com/3d-models/volvo-p1800-restomod-widebody-edition-645ade917ed64360825930724c3ed234
+* author:	carmodifier (https://sketchfab.com/carmodifier)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Volvo P1800 Restomod – Widebody Edition" (https://sketchfab.com/3d-models/volvo-p1800-restomod-widebody-edition-645ade917ed64360825930724c3ed234) by carmodifier (https://sketchfab.com/carmodifier) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

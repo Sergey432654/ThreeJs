@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { color, emissive, shininess } from 'three/tsl';
-import { OrbitControls } from 'three/examples/jsm/Addons.js';
-
+import { OrbitControls } from 'three/examples/jsm/Addons.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const scene = new THREE.Scene();
 
@@ -18,7 +18,22 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     100,
 )
-
+const loader = new GLTFLoader()
+loader.load(
+    'vvv/scene.gltf',
+    (gltf) => {
+        const model = gltf.scene
+        model.scale.set(1,1,1)
+        model.position.set(0,-1,0)
+        scene.add(model)
+    },
+    (xhr) => {
+        console.log(xhr.loaded / xhr.total * 100 + '% loaded')
+    },
+    (error) =>{
+        console.error('Error' + error)
+    }
+)
 
 camera.position.z = 5 ;
 const renderer  = new THREE.WebGLRenderer();
@@ -36,7 +51,7 @@ const material = new THREE.MeshStandardMaterial({color: 'purple' });
 const originMaterial = new THREE.MeshStandardMaterial({color: 'red'});
 const hightOriginMaterial = new THREE.MeshStandardMaterial({color: 'yellow', emissive: 'white', emissiveIntensity: 0.5});
 const cube = new THREE.Mesh(geometry,originMaterial);
-scene.add(cube);
+//scene.add(cube);
 cube.position.set(0,0,0);
 const raycast = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -61,6 +76,7 @@ function animate(){
         state = false
         gsap.to(cube.scale, {x: 1 , y: 1, z: 1 , duration: 1.5 , ease: "power1.out"})
     }
+    renderer.setClearColor('blue')
     controls.update();
     renderer.render(scene,camera);
 }
