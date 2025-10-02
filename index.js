@@ -5,8 +5,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const scene = new THREE.Scene();
 
-//const ambienLight = new THREE.AmbientLight('white', 0.5);
-//scene.add(ambienLight)
+const ambienLight = new THREE.AmbientLight('white', 0.5);
+scene.add(ambienLight)
 
 const dirlight = new THREE.DirectionalLight('white', 1);
 scene.add(dirlight)
@@ -35,6 +35,7 @@ loader.load(
     }
 )
 
+
 camera.position.z = 5 ;
 const renderer  = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth,window.innerHeight);
@@ -45,7 +46,6 @@ controls.dampingFactor = 0.05;
 controls.screenSpacePanning = false;
 controls.minDistance = 2;
 controls.maxDistance = 10 ;
-
 const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshStandardMaterial({color: 'purple' });
 const originMaterial = new THREE.MeshStandardMaterial({color: 'red'});
